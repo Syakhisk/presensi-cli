@@ -1,0 +1,20 @@
+{
+  "name": "presensi-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "get-chrome": "^0.0.2",
+    "node-fzf": "^0.11.0",
+    "puppeteer-core": "^10.2.0",
+    "temp-dir": "^2.0.0"
+  }
+}
