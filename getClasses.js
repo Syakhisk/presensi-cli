@@ -5,14 +5,13 @@ import tempDir from "temp-dir"
 import ora from "ora"
 import chromePath from "chrome-paths"
 
-import blockResources from "./lib/helper-fn/blockResources.js"
-import waitAll from "./lib/helper-fn/waitAll.js"
-import login from "./lib/page-fn/login.js"
-import parseTatapMukaBunch from "./lib/page-fn/parseTatapMukaBunch.js"
-import getTatapMukaToday from "./lib/page-fn/getTatapMukaToday.js"
+import filterKelas from "./lib/filterKelas.js"
+import login from "./lib/login.js"
+import blockResources from "./lib/blockResources.js"
+import waitAll from "./lib/waitAll.js"
 
 const config = {
-  headless: true,
+  headless: false,
   devtools:true,
   executablePath: chromePath.chrome,
   args: [`--user-data-dir=${tempDir}/pptr`]
@@ -26,13 +25,12 @@ const selectors = {
   listKelas: ".block .block-content ul li .content-li",
   itemKelas: "h5 a",
   time: ".row .col",
-  tatapmuka_bunch: "table.js-table-sections-enabled tbody.js-table-sections-header",
+
 };
 
 const urls = {
   myIts: "https://my.its.ac.id",
   presensi: "https://presensi.its.ac.id",
-  kelasDummy: "https://presensi.its.ac.id/tatap-muka/20211:42100:ME184412:A"
 };
 
 (async () => {
@@ -47,10 +45,13 @@ const urls = {
 
   //* Visit
   spinner.text = `Heading to ${urls.presensi}`
-  await page.goto(urls.presensi, {waitUntil: 'domcontentloaded'});
+  await waitAll(
+    page.goto(urls.presensi),
+    page.waitForNavigation({waitUntil: 'domcontentloaded'})
+  )
 
   //* Login check
-  if(page.url().includes(urls.myIts)){
+  if(page.url().includes("my.its.ac.id")){
     spinner.text = "Logging in"
     await waitAll(
       page.evaluate(login, {selectors, env: process.env}),
@@ -60,18 +61,11 @@ const urls = {
     spinner.text = "Logged in."
   }
 
-  await page.goto(urls.kelasDummy, {waitUntil: 'domcontentloaded'})
-  await page.waitForSelector(selectors.tatapmuka_bunch)
-
-  spinner.text = "Getting tatap muka"
-  const listTatapMuka = await page.$$eval(selectors.tatapmuka_bunch, parseTatapMukaBunch).catch(e => console.log(e))
-
-  spinner.text = "Getting latest class"
-  const tatapMukaToday = getTatapMukaToday(listTatapMuka)
+  //* Get class
+  spinner.text = "Getting classes"
+  const listKelas = await page.$$eval(selectors.listKelas, filterKelas, selectors).catch((e) => {spinner.text = e})
   spinner.stop()
-
-  // console.log(listTatapMuka)
-  console.log(tatapMukaToday)
+  console.log(listKelas)
 
   await browser.close()
 })();
