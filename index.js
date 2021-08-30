@@ -1,15 +1,15 @@
-import "dotenv/config" 
+require("dotenv").config()
 
-import puppeteer from 'puppeteer-core'
-import tempDir from "temp-dir"
-import ora from "ora"
-import chromePath from "chrome-paths"
+const puppeteer = require('puppeteer-core')
+const tempDir = require("temp-dir")
+const ora = require("ora")
+const chromePath = require("chrome-paths")
 
-import blockResources from "./lib/helper-fn/blockResources.js"
-import waitAll from "./lib/helper-fn/waitAll.js"
-import login from "./lib/page-fn/login.js"
-import parseTatapMukaBunch from "./lib/page-fn/parseTatapMukaBunch.js"
-import getTatapMukaToday from "./lib/page-fn/getTatapMukaToday.js"
+const blockResources = require("./lib/helper-fn/blockResources.js")
+const waitAll = require("./lib/helper-fn/waitAll.js")
+const login = require("./lib/page-fn/login.js")
+const parseTatapMukaBunch = require("./lib/page-fn/parseTatapMukaBunch.js")
+const getTatapMukaToday = require("./lib/page-fn/getTatapMukaToday.js")
 
 const config = {
   headless: true,

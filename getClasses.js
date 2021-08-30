@@ -1,14 +1,14 @@
-import "dotenv/config" 
+require("dotenv").config()
 
-import puppeteer from 'puppeteer-core'
-import tempDir from "temp-dir"
-import ora from "ora"
-import chromePath from "chrome-paths"
+const puppeteer = require('puppeteer-core')
+const tempDir = require("temp-dir")
+const ora = require("ora")
+const chromePath = require("chrome-paths")
 
-import filterKelas from "./lib/filterKelas.js"
-import login from "./lib/login.js"
-import blockResources from "./lib/blockResources.js"
-import waitAll from "./lib/waitAll.js"
+const filterKelas = require("./lib/filterKelas.js")
+const login = require("./lib/login.js")
+const blockResources = require("./lib/blockResources.js")
+const waitAll = require("./lib/waitAll.js")
 
 const config = {
   headless: false,
