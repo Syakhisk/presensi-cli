@@ -1,37 +1,44 @@
 [
   {
-    "link": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184501:A",
+    "url": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184501:A",
     "name": "Komunikasi Data dan Jaringan komputer (A)",
-    "jadwal": "Kamis 08:00 - 10:50 IT 603"
+    "schedule": "Kamis 08:00 - 10:50 IT 603",
+    "alias": "jarkom"
   },
   {
-    "link": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184503:A",
+    "url": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184503:A",
     "name": "Sistem Deteksi dan Intrusi (A)",
-    "jadwal": "Selasa 13:30 - 16:20 IT 606"
+    "schedule": "Selasa 13:30 - 16:20 IT 606",
+    "alias": "sdi"
   },
   {
-    "link": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184504:A",
+    "url": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184504:A",
     "name": "Arsitektur dan Integrasi Sistem (A)",
-    "jadwal": "Senin 13:30 - 16:20 IT 603"
+    "schedule": "Senin 13:30 - 16:20 IT 603",
+    "alias": "arsin"
   },
   {
-    "link": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184505:A",
+    "url": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184505:A",
     "name": "Jaringan Nirkabel (A)",
-    "jadwal": "Jumat 08:00 - 10:50 IT 603"
+    "schedule": "Jumat 08:00 - 10:50 IT 603",
+    "alias": "nirkabel"
   },
   {
-    "link": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184605:A",
+    "url": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184605:A",
     "name": "Komputasi Klaster (A)",
-    "jadwal": "Rabu 13:30 - 16:20 IT 605"
+    "schedule": "Rabu 13:30 - 16:20 IT 605",
+    "alias": "klaster"
   },
   {
-    "link": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184702:B",
+    "url": "https://presensi.its.ac.id/tatap-muka/20211:53100:IT184702:B",
     "name": "Platform dan Pengembangan Aplikasi Mobile (B)",
-    "jadwal": "Jumat 13:30 - 15:20 IT 605"
+    "schedule": "Jumat 13:30 - 15:20 IT 605",
+    "alias": "mobile"
   },
   {
-    "link": "https://presensi.its.ac.id/tatap-muka/20211:__TPB:UG184915:31",
+    "url": "https://presensi.its.ac.id/tatap-muka/20211:__TPB:UG184915:31",
     "name": "Teknopreneur (31)",
-    "jadwal": "Rabu 15:30 - 17:20 UPMB-406"
+    "schedule": "Rabu 15:30 - 17:20 UPMB-406",
+    "alias": "tekno"
   }
 ]

@@ -1,62 +1,56 @@
 require("dotenv").config()
-const nfzf = require( 'node-fzf' )
-const {bgCyan, red, cyan} = require('chalk')
 
-const {access, readFile} = require('fs/promises')
-const inquirer = require('inquirer');
+const userClasses = require('./user-classes.json')
+const {Command, InvalidArgumentError} = require('commander');
+const program = new Command();
+const presence = require('./presence')
 
-const opts = {
-  // list: [ 'whale', 'giraffe', 'monkey' ],
-  prefill: '',
-  prelinehook: function ( index ) { return '' },
-  postlinehook: function ( index ) { return '' }
-};
+program.version("0.1.0");
+
+program
+  .option('-p, --presence-code <number>', "6 Digit Presence Code", validatePresensceCode)
+  .option('-c, --class <alias>', "Lecture (class) alias")
+  .option('-U, --username <username>', "myITS Username (NRP), optional (will override user-config if defined)")
+  .option('-P, --password <password>', "myITS Password, optional (will override user-config if defined)")
+  .option('-l, --list', "List defined user classes/lectures")
+
+program.parse()
+
+if(program.opts().list){
+  for(let index in userClasses){
+    console.log()
+    console.log(`Index: [${index}]`)
+    console.log(`Name: ${userClasses[index].name}`)
+    console.log(`Alias: ${userClasses[index].alias}`)
+    console.log(`Time: ${userClasses[index].schedule}`)
+    console.log(`URL: ${userClasses[index].url}`)
+    console.log()
+  }
+
+  return
+}
+
+if(program.opts().class){
+  if(!program.opts().presenceCode){
+    console.log("Presence code is not provided, provide it with --presence-code")
+    return
+  }
+
+  const chosen = userClasses.filter(item => item.alias == program.opts().class)[0]
+  if(!chosen){
+    console.log("Alias not found, use --list to see available aliases")
+    return
+  }
+
+  presence({class_url:chosen.url, presenceCode: program.opts().presenceCode})
+}
 
 
-(async function () {
-  const isClassesExists = await access("./user-classes.json").then(data => true).catch(() => false)
-  if(!isClassesExists) return false
+function validatePresensceCode(value){
+  if(isNaN(value)) throw new InvalidArgumentError("Please enter a number")
+  if(value.length !== 6) throw new InvalidArgumentError("Presence code should be 6 digit")
 
-  const userClasses = JSON.parse(await readFile("./user-classes.json", {encoding: "utf-8"}))
+  return value
+}
 
 
-//   console.log("------------")
-//   console.log(bgCyan.black(" Presensi CLI "))
-//   console.log("------------")
-//   console.log()
-// 
-//   console.log(cyan("Choose a class: "))
-// 
-//   opts.list = userClasses.map(item => item.name)
-//   const result = await nfzf(opts)
-//   const { selected, query } = result
-// 
-//   if( !selected ) {
-//     console.log( 'No matches for:', query )
-//   } else {
-//     console.log( selected.value ) // 'giraffe'
-//     console.log( selected.index ) // 1
-//     console.log( selected.value === opts.list[ selected.index ] ) // true
-//   }
-
- inquirer
-  .prompt([
-    {
-      type: 'rawlist',
-      name: 'theme',
-      message: 'What do you want to do?',
-      pageSize: userClasses.length + 1,
-      choices: userClasses.map(item => item.name)
-    },
-  ])
-  .then((answers) => {
-  console.log(answers)
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      console.log("tty")
-    } else {
-    console.log(error)
-    }
-  });
-})()
