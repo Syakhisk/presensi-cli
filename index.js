@@ -1,3 +1,4 @@
+#!/bin/env node
 require("dotenv").config()
 
 const userClasses = require('./user-classes.json')
